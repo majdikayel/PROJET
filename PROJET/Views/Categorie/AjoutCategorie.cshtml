@@ -1,0 +1,48 @@
+﻿@Model PROJET.models.CAT_CATEGORIE
+
+@{
+    ViewBag.Title = "AjoutCategorie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AjoutCategorie</h2>
+<div>
+    <form id="formCategorie" name="formCategorie" action="" method="post">
+
+        <div class="form-group">
+            <label>CATEGORIE</label>
+            <input type="text" id="LIBELLE_CATEGORIE" name="LIBELLE_CATEGORIE" class="form-control" required />
+
+        </div>
+        <div>
+            <input type="submit" id="enregistrer" name="enregistrer" value="Enregistrer" class="btn btn-primary" />
+        </div>
+    </form>
+    <hr />
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tr>
+                <th>
+                    CATEGORIE
+                </th>
+
+                <th>
+                    DATE SAISIE
+                </th>
+            </tr>
+
+            @foreach(var data in ViewBag.listeCategorie)
+            {
+        <tr>
+            <td>@data.LIBELLE_CATEGORIE</td>
+            <td>@data.DATE_SAISIE</td>
+           
+
+        </tr>
+
+            }
+        </table>
+    </div>
+</div>
+
