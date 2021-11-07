@@ -51,7 +51,7 @@ namespace PROJET.Controllers
                             file.SaveAs(path);
 
                             produit.IMAGE_PRODUIT = fileName;
-                            produit.URL_IMAGE_PRODUIT = "/ Fichier";
+                            produit.URL_IMAGE_PRODUIT = "/Fichier";
                             
                         }
                     }
