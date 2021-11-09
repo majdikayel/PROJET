@@ -1,4 +1,4 @@
-﻿@Model PROJET.models.CAT_CATEGORIE
+﻿@model PROJET.Models.CAT_CATEGORIE
 
 @{
     ViewBag.Title = "AjoutCategorie";
@@ -8,14 +8,27 @@
 <h2>AjoutCategorie</h2>
 <div>
     <form id="formCategorie" name="formCategorie" action="" method="post">
-
+        @if(Model != null)
+            {
+                <input type="hidden" name="CODDE_CATEGORIE" id="CODDE_CATEGORIE" value="@Model.CODDE_CATEGORIE"/>
+            }
         <div class="form-group">
             <label>CATEGORIE</label>
-            <input type="text" id="LIBELLE_CATEGORIE" name="LIBELLE_CATEGORIE" class="form-control" required />
+            <input type="text" id="LIBELLE_CATEGORIE" name="LIBELLE_CATEGORIE" class="form-control" value="@(Model != null? Model.LIBELLE_CATEGORIE : "")" required />
 
         </div>
         <div>
-            <input type="submit" id="enregistrer" name="enregistrer" value="Enregistrer" class="btn btn-primary" />
+            @if (Model == null)
+            {
+                <input type="submit" id="enregistrer" name="enregistrer" value="Enregistrer" class="btn btn-primary" />
+
+            }
+            else
+            {
+                <input type="submit" id="Modifier" name="Modifier" value="Enregistrer modification" class="btn btn-success" />
+                <a href="~/Categorie/AjoutCategorie" class="btn btn-default">Annuler</a>
+                }
+
         </div>
     </form>
     <hr />
@@ -30,6 +43,12 @@
                 <th>
                     DATE SAISIE
                 </th>
+                <th>
+                    Btn-Modifier
+                </th>
+                <th>
+                    Btn-Supprimer
+                </th>
             </tr>
 
             @foreach(var data in ViewBag.listeCategorie)
@@ -37,7 +56,9 @@
         <tr>
             <td>@data.LIBELLE_CATEGORIE</td>
             <td>@data.DATE_SAISIE</td>
-           
+            <td><a href="~/Categorie/ModifierCategorie/@data.CODDE_CATEGORIE" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit"></span>Modifier</a></td>
+            <td><a href="~/Categorie/SupprimerCategorie/@data.CODDE_CATEGORIE" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>Supprimer</a></td>
+
 
         </tr>
 

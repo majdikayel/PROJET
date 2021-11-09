@@ -27,7 +27,7 @@ namespace PROJET.Controllers
                 return View();
 
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
 
                 return HttpNotFound();
@@ -63,11 +63,75 @@ namespace PROJET.Controllers
                 return RedirectToAction("AjoutProduit");
 
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
 
                 return HttpNotFound();
             }
+        }
+        public ActionResult SupprimerProduit(int id)
+        {
+            try
+            {
+                CAT_PRODUIT produit = db.CAT_PRODUIT.Find(id);// rechercher le produit
+                if (produit != null)
+                {
+                    db.CAT_PRODUIT.Remove(produit);// supprimer le produit
+                    db.SaveChanges();//enregistrer le resultat
+                }
+                return RedirectToAction("AjoutProduit");
+
+            }
+            catch (Exception e)
+            {
+
+                return HttpNotFound();
+            }
+
+        }
+        public ActionResult ModifierProduit(int id)
+        {
+            try
+            {
+                ViewBag.listeCategorie = db.CAT_CATEGORIE.ToList();
+                ViewBag.listeProduit = db.CAT_PRODUIT.ToList();
+
+                CAT_PRODUIT produit = db.CAT_PRODUIT.Find(id);
+                if (produit != null)
+                {
+                    return View("AjoutProduit", produit);
+                }
+                return RedirectToAction("AjoutProduit");
+
+            }
+            catch (Exception e)
+            {
+
+                return HttpNotFound();
+            }
+
+        }
+        [HttpPost]
+
+        public ActionResult ModifierProduit(CAT_PRODUIT produit)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Entry(produit).State = EntityState.Modified;//modification de notre categorie
+                    db.SaveChanges();
+                }
+
+                return RedirectToAction("AjoutProduit");
+
+            }
+            catch (Exception e)
+            {
+
+                return HttpNotFound();
+            }
+
         }
     }
 }
